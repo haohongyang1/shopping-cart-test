@@ -15,8 +15,8 @@
 # shopping-cart-test
 
 
-### Vue 
-##### 写在前面的项目搭建相关
+## Vue 
+### 写在前面的项目搭建相关
 
 
 - 初始化vue项目：npm install vue-cli -g 发现遇到错误
@@ -28,11 +28,11 @@
 - 安装markdown目录生成工具 npm install doctoc -g ，使用：执行 doctoc [md file name]
 
 
-##### 1.VUE基础实现回顾
+### 1.VUE基础实现回顾
 实现一个购物车 /src/components/Home.vue
 
 
-##### 2. 实现el-form
+### 2. 实现el-form
 - 安装 element: 
 用法：
 ```
@@ -63,8 +63,8 @@
 2、async-validator的使用参考：
 [https://www.npmjs.com/package/async-validator]([https://www.npmjs.com/package/async-validator)
 
-##### 3.Vue全家桶
-###### vue-router
+### 3.Vue全家桶
+#### vue-router
 - npm install vue-router
 - vue add router(如果显示无法加载文件，使用管理员身份运行，set-ExecutionPolicy RemoteSigned)
 
@@ -75,9 +75,8 @@
 
 1、 导航守卫添加方式分类：
 ```mermaid
-    graph TD
-    导航守卫 --> D[全局守卫适用于登录验证]
-    导航守卫 -->E[单独路由守卫适用于组件]
-    导航守卫 --> F[单独组件守卫]
+graph TD
+导航守卫 --> D[全局守卫适用于登录验证]
+导航守卫 --> E[单独路由守卫适用于组件]
+导航守卫 --> F[单独组件守卫]
 ```
- 

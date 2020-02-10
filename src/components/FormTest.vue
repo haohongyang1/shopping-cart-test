@@ -47,9 +47,12 @@ export default {
       submit() {
           this.$refs['formTest'].validate((r) => {
               if (r) {
-                  alert('校验成功')
+                  window.isLogin = true
+                  if (this.$router.query.redirect) {
+                      this.$route.push(this.$router.query.redirect)
+                  }
               } else {
-                  alert('校验失败')
+                  window.isLogin = false
               }
           })
       }

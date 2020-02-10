@@ -1,44 +1,8 @@
 <template>
   <div class="cart-container">
-    <!-- 自己实现一个form表单用户添加商品 -->
-
-    <div class="add-good-container">
-      <input type="text" v-model="sGoodsInput"> 添加商品
-    </div>
-    <div class="good-content-container">
-      <ul>
-        <li v-for="goodItem in oGoodsList" :key="goodItem.id">
-          商品名：{{goodItem.name}} ；
-          价格：{{goodItem.price}}；
-          <button class="add-to-cart" @click="addToCart(goodItem)">加入购物车</button>
-        </li>
-      </ul>
-    </div>
-    <div class="cart-table">
-      <hr>
-      <table border="1">
-        <tr>
-          <th></th>
-          <th>id</th>
-          <th>name</th>
-          <th>price</th>
-          <th>count</th>
-        </tr>
-        <tr v-for="goodItem in oCart" :key="goodItem.id" :class="{'is-active': !goodItem.active}">
-          <td>
-            <input type="checkbox" v-model="goodItem.active" @change="changeActive(goodItem)">
-          </td>
-          <td>{{goodItem.id}}</td>
-          <td>{{goodItem.name}}</td>
-          <td>{{goodItem.price}}</td>
-          <td>{{goodItem.count}}</td>
-        </tr>
-        <tr>
-          <td>合计</td>
-          <td colspan="4">{{totalCount}}</td>
-        </tr>
-      </table>
-    </div>
+    <router-link to="/list">商品列表页</router-link>
+    <router-link to="/cart">购物车</router-link>
+    <router-link to="/login">登录</router-link>
   </div>
 </template>
 
@@ -48,7 +12,6 @@ export default {
   data () {
     return {
       sGoodsInput: '',
-      // totalCount: 0,
       oGoodsList: [
         {id: 1, name: '口罩', price: 35},
         {id: 2, name: '双黄连', price: 40},
