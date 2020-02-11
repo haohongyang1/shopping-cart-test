@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Home from '@/views/Home'
 import About from '@/views/about/Home'
 import Cart from '@/views/cart/Home'
 import Detail from '@/views/detail/Home'
 import List from '@/views/list/Home'
 import Login from '@/views/login/Home'
+import store from '../store/index'
 
 Vue.use(Router)
 const router = new Router({
@@ -48,15 +50,14 @@ const router = new Router({
 })
 // 1、全局前置守卫：每次路由激活之前调用
 router.beforeEach((to, from, next) => {
-  if ((to.path !== '/login' &&  !window.isLogin)) {
+  if ((to.path !== '/login' &&  !store.state.isLogin)) {
     next({path: '/login?redirect=' + to.path}) // 可以在该位置做一个路由重定向，登陆后继续跳转到刚才想进入的页面
-    // next()
     console.log('请登录')
   } else {
     if (to.path === '/login') {
       next()
     } else {
-      next(false)
+      next()
     }
   }
 })

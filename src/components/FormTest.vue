@@ -45,14 +45,16 @@ export default {
   },
   methods: {
       submit() {
+          let redirect = this.$route.query.redirect
+          let store = this.$store
           this.$refs['formTest'].validate((r) => {
               if (r) {
-                  window.isLogin = true
-                  if (this.$router.query.redirect) {
-                      this.$route.push(this.$router.query.redirect)
-                  }
-              } else {
-                  window.isLogin = false
+                //   store.commit('login') // 使用同步
+                  store.dispatch('requestLogin').then(isLogin => {
+                      if (redirect) {
+                          this.$router.push(redirect)
+                      }
+                  }).catch(e => {}) // 使用异步
               }
           })
       }

@@ -64,19 +64,31 @@
 [https://www.npmjs.com/package/async-validator]([https://www.npmjs.com/package/async-validator)
 
 ### 3.Vue全家桶
-#### vue-router
-- npm install vue-router
-- vue add router(如果显示无法加载文件，使用管理员身份运行，set-ExecutionPolicy RemoteSigned)
+#### [vue-router](https://router.vuejs.org/zh/installation.html)
 
-补全购物车实例：
-单页面应用实现，登录页、商品详情页、购物车页面、商品管理页面；要求：需要增加未登录导航守卫
+- 补全购物车实例：实现以下功能模块
+单页面 登录页、商品页（包含详情页、购物车页面、商品管理页面、商品列表页面）；
+- 要求：
+    - 路由嵌套：router-view && children
+    - 路由组件传参：router.config.js -> props，减少变量和$route耦合
+    - 注意router-link的使用
+    - 增加未登录导航守卫
+    - 根据权限控制是否可以进入商品管理页面
+- 原理：实现一个vue-router ->  ** /root/util/myRoute.js  **
+
 
 **小记**
-
 1、 导航守卫添加方式分类：
 ```mermaid
 graph TD
 导航守卫 --> D[全局守卫适用于登录验证]
-导航守卫 --> E[单独路由守卫适用于组件]
+导航守卫 -->E[单独路由守卫适用于组件]
 导航守卫 --> F[单独组件守卫]
 ```
+ 
+#### [vuex](https://vuex.vuejs.org/zh/)
+- 补全购物车实例：将isLogin存储在isLogin中，状态更新、异步登录成功接收结果值
+- 技术点：vuex中单项数据流、能改状态的只有mutaion、对应关系：
+mutaion -- commit 、actions -- dispatch
+- 原理：实现一个vuex -> ** /root/myStore.js **
+
