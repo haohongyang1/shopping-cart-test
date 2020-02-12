@@ -15,7 +15,7 @@ class myStore{
     dispatch (type, payload) {
         const action = this.actions[type]
         const ctx = {
-            commit: this.commit,
+            commit: this.commit.bind(this),
             state: this.state, //....and so on
         }
         return action(ctx, payload)

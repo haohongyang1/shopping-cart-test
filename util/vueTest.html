@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>test</title>
+  <script src="./hVue.js"></script>
+  <script src="./hCompile.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{name}}</p>
+        <p h-text="name"></p>
+        <p>{{age}}</p>
+        <p>{{doubleAge}}</p>
+        <input type="text" h-model='name'>
+        <button @click="changeName">改变文字</button>
+        <div h-html="html"></div>
+    </div>
+<script>
+    let app = new HVue({
+        el: '#app',
+        data: {
+            name: 'I am a test',
+            age: 12,
+            html: '<button>button按钮</button>'
+        },
+        created() {
+          console.log('开始啦') 
+          setTimeout(() => {
+              this.name = '我是测试'
+          }, 2000)
+        },
+        methods: {
+            changeName() {
+                this.name = '哈喽哈喽'
+                this.age = 1
+            }
+        }
+    })
+</script>
+</body>
+</html>

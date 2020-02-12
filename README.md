@@ -3,12 +3,16 @@
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [shopping-cart-test](#shopping-cart-test)
-    - [Vue](#vue)
-        - [写在前面的项目搭建相关](#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3)
-        - [1.VUE基础实现回顾](#1vue%E5%9F%BA%E7%A1%80%E5%AE%9E%E7%8E%B0%E5%9B%9E%E9%A1%BE)
-        - [2. 实现el-form](#2-%E5%AE%9E%E7%8E%B0el-form)
-        - [3.Vue全家桶](#3vue%E5%85%A8%E5%AE%B6%E6%A1%B6)
-          - [vue-router](#vue-router)
+  - [Vue](#vue)
+    - [写在前面的项目搭建相关](#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3)
+    - [1.VUE基础实现回顾](#1vue%E5%9F%BA%E7%A1%80%E5%AE%9E%E7%8E%B0%E5%9B%9E%E9%A1%BE)
+    - [2. 实现el-form](#2-%E5%AE%9E%E7%8E%B0el-form)
+    - [3.Vue全家桶](#3vue%E5%85%A8%E5%AE%B6%E6%A1%B6)
+      - [vue-router](#vue-router)
+      - [vuex](#vuex)
+    - [4 发布](#4-%E5%8F%91%E5%B8%83)
+      - [发布流程](#%E5%8F%91%E5%B8%83%E6%B5%81%E7%A8%8B)
+    - [5 Vue源码解析](#5-vue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -92,3 +96,45 @@ graph TD
 mutaion -- commit 、actions -- dispatch
 - 原理：实现一个vuex -> ** /root/myStore.js **
 
+### 4 发布
+#### 发布流程
+- npm run build
+- 下载nginx
+- /conf/nginx.conf文件重要参数配置参考：
+```
+server{
+    listen      80;
+    server_name localhose;
+    root    ;
+    // 重定向
+    location /[publicpath]{};
+    // 代理
+    location 
+}
+```
+- 启动服务器start nginx
+
+### 5 Vue源码解析
+
+
+- vue工作机制原理
+![vue工作机制原理](./static/image/thieoryimg/VUE.png)
+
+- 核心响应式原理
+![核心响应式原理](./static/image/thieoryimg/MVVM.png)
+模拟源码位置：/root/util/hVue.js
+- 依赖收集和追踪 
+![依赖收集和追踪](./static/image/thieoryimg/Compile.png)
+ 
+ 模拟源码位置：/root/util/hCompile.js
+ 
+ 
+ **小记：原生js的dom** 
+ 
+ 
+ - 在Dom中获取元素：document.querySelector('#app')
+
+ - 创建fragment节点：document.createDocumentFragment()
+ - 向fragment中添加子元素：fragment.appendChild(document.querySelector('#app').firstChild)
+ -  添加fragment元素到dom中：document.querySelector('#app').appendChild(fragment)
+ - 取节点属性：node.attributes(类数组),Array.from().forEach, item.name:item.value
