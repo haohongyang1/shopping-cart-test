@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+<!-- **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)* -->
 
 - [shopping-cart-test](#shopping-cart-test)
   - [Vue](#vue)
@@ -30,7 +30,13 @@
 - 搭建脚手架：npm install webpack [project name]
 - 安装vue-router：npm install vue-router
 - 安装markdown目录生成工具 npm install doctoc -g ，使用：执行 doctoc [md file name]
-
+- 安装vuex：npm install vuex -save
+- [解决本地推送到github上出现Permission Denied问题](https://www.zhihu.com/question/21402411?utm_source=wechat_session&utm_medium=social&s_s_i=ryw74ox8wERkyUcIrQlxqz%2ByyBTadcI%2B2tctx8C22z0%3D&s_r=1)
+- 写一个服务端：
+    - 安装koa2：npm install koa@next
+    - 安装koa-router：npm install @koa/router
+    - 安装jsonwebtoken(令牌机制规范，签发令牌)：npm install jsonwebtoken
+    - 安装koa-jwt(中间件、做校验)：npm install koa-jwt
 
 ### 1.VUE基础实现回顾
 实现一个购物车 /src/components/Home.vue
@@ -78,7 +84,7 @@
     - 注意router-link的使用
     - 增加未登录导航守卫
     - 根据权限控制是否可以进入商品管理页面
-- 原理：实现一个vue-router ->  ** /root/util/myRoute.js  **
+- 原理：实现一个vue-router ->  **/root/util/myRoute.js**
 
 
 **小记**
@@ -94,7 +100,7 @@ graph TD
 - 补全购物车实例：将isLogin存储在isLogin中，状态更新、异步登录成功接收结果值
 - 技术点：vuex中单项数据流、能改状态的只有mutaion、对应关系：
 mutaion -- commit 、actions -- dispatch
-- 原理：实现一个vuex -> ** /root/myStore.js **
+- 原理：实现一个vuex -> **/root/myStore.js**
 
 ### 4 发布
 #### 发布流程
@@ -138,3 +144,42 @@ server{
  - 向fragment中添加子元素：fragment.appendChild(document.querySelector('#app').firstChild)
  -  添加fragment元素到dom中：document.querySelector('#app').appendChild(fragment)
  - 取节点属性：node.attributes(类数组),Array.from().forEach, item.name:item.value
+
+ ### 移动端项目实现
+
+1. UI库选择
+![移动端UI框架选择](./static/image/thieoryimg/UI-mobile-select.png)
+
+
+2. Cube-ui演示 [cube-ui](
+https://didi.github.io/cube-ui/#/zh-CN/docs/toast)
+3. 登录机制
+
+![login机制](./static/image/thieoryimg/login-thieory.png)
+
+4. axios拦截器配置
+```
+// 请求拦截
+axios.interceptors.request.use(config => {
+    const token = localStorage.getItem('token')
+    if (token) {
+        config.headers.token = 'token'
+    }
+    return config
+})
+```
+5. 登录注销流程：清空localStorage缓存、登录态更新为false
+6. **深入理解令牌机制：**
+- Bearer Token规范
+介绍：安全令牌，保护资源，不关心令牌所有者，之关注令牌真假
+具体规定：在请求头中定义
+```
+Authorizatior : 'Bearer'+token
+```
+- json Web Token规范
+介绍：json的网络令牌；
+规定：头.载荷.签名；
+头（加密算法）、载荷（用户信息、签发时间、过期时间，使用base64处理的）、签名（根据头、载荷及密钥加密得到的sha1 256加密的）
+[jwt.io](https://jwt.io) 网站可以使用secret把加密后的反解
+7. 写一个服务端 /root/server/server.js
+

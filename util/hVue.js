@@ -15,7 +15,7 @@ class HVue {
         // this.$data.msg
         // new Watcher()
         // this.$data.foo
-        
+
         if (options.created) {
             options.created.call(this)
         }
