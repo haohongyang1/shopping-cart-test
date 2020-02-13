@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)* -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [shopping-cart-test](#shopping-cart-test)
   - [Vue](#vue)
@@ -13,6 +13,7 @@
     - [4 发布](#4-%E5%8F%91%E5%B8%83)
       - [发布流程](#%E5%8F%91%E5%B8%83%E6%B5%81%E7%A8%8B)
     - [5 Vue源码解析](#5-vue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90)
+    - [6 移动端项目实现+登录机制](#6-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E6%9C%BA%E5%88%B6)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -145,7 +146,7 @@ server{
  -  添加fragment元素到dom中：document.querySelector('#app').appendChild(fragment)
  - 取节点属性：node.attributes(类数组),Array.from().forEach, item.name:item.value
 
- ### 移动端项目实现
+### 6 移动端项目实现+登录机制
 
 1. UI库选择
 ![移动端UI框架选择](./static/image/thieoryimg/UI-mobile-select.png)

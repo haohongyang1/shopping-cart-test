@@ -21,7 +21,7 @@ router.get("/api/login", async ctx => {
         })
         ctx.body = {code: 1, token}
     } else {
-        ctx.status = 401
+        ctx.status = 401 // status默认200
         ctx.body = {code: 0, message: "用户名不存在或者密码错误"}
     }
 })
