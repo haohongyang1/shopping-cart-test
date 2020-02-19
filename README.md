@@ -46,6 +46,11 @@
     - 安装koa-router：npm install @koa/router
     - 安装jsonwebtoken(令牌机制规范，签发令牌)：npm install jsonwebtoken
     - 安装koa-jwt(中间件、做校验)：npm install koa-jwt
+- [nuxtJS](
+https://zh.nuxtjs.org/api) 
+- [npx](
+http://www.ruanyifeng.com/blog/2019/02/npx.html)  npm 从5.2版开始，增加了 npx 命令 
+- cookie管理插件：npm install js-cookie -S
 
 ### 1.VUE基础实现回顾
 实现一个购物车 /src/components/Home.vue
@@ -176,7 +181,11 @@ axios.interceptors.request.use(config => {
     return config
 })
 ```
-5. 登录注销流程：清空localStorage缓存、登录态更新为false
+5. 实践：
+按照权限登录：登录注销流程：清空localStorage缓存、登录态更新为false
+    - router做路由拦截 /root/router/index.js || permission.js
+    - vuex保存登录token和role（与cookie同步） /store/modules/permission.js || user.js
+    - cookie保存登录token和role /root/util/utils/auth.js
 6. **深入理解令牌机制：**
 - Bearer Token规范
 介绍：安全令牌，保护资源，不关心令牌所有者，之关注令牌真假
@@ -193,6 +202,10 @@ Authorizatior : 'Bearer'+token
 文件位置：/root/server/server.js
 
 **小记**
+- 令牌机制是否安全？
+安全，前端擅自修改token传到后台后，会被识别为已篡改，当做未登录；
+但用户不小心点击钓鱼网站，即CSRF攻击，会导致有人拿着token登录我们网站；
+- 状态码：
 304：在缓存中拿到的
 401：没有登录
 403：登录了，但是没有权限操作被拒绝

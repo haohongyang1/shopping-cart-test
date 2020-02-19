@@ -7,59 +7,74 @@ import Cart from '@/views/cart/Home'
 import Detail from '@/views/detail/Home'
 import List from '@/views/list/Home'
 import Login from '@/views/login/Home'
-import store from '../store/index'
 
 Vue.use(Router)
-const router = new Router({
-  mode: 'history',
-  base: process.env.BASE_URL, // 此处未生效 ===== TODO =======
-  routes: [
-    {
-      path: '/',
-      name: 'Home',
-      component: Home
+// 通用页面 
+export const constRoutes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  }
+]
+// 权限访问
+export const asyncRoutes = [
+  {
+    path: '/about',
+    name: 'About',
+    component: About,
+    meta: {
+      roles: ['admin']
     },
-    {
-      path: '/about',
-      name: 'About',
-      component: About,
-      beforeEnter(to, from, next) { // 2、 路由独享守卫()
-      }
-    },
-    {
-      path: '/cart',
-      name: 'Cart',
-      component: Cart
-    },
-    {
-      path: '/detail',
-      name: 'Detail',
-      component: Detail
-    },
-    {
-      path: '/list',
-      name: 'List',
-      component: List
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
+    beforeEnter(to, from, next) { // 2、 路由独享守卫()
     }
-  ]
-})
-// 1、全局前置守卫：每次路由激活之前调用
-router.beforeEach((to, from, next) => {
-  if ((to.path !== '/login' &&  !store.state.isLogin)) {
-    next({path: '/login?redirect=' + to.path}) // 可以在该位置做一个路由重定向，登陆后继续跳转到刚才想进入的页面
-    console.log('请登录')
-  } else {
-    if (to.path === '/login') {
-      next()
-    } else {
-      next()
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart,
+    meta: {
+      roles: ['admin']
+    }
+  },
+  {
+    path: '/detail',
+    name: 'Detail',
+    component: Detail,
+    meta: {
+      roles: ['editor', 'admin']
+    }
+  },
+  {
+    path: '/list',
+    name: 'List',
+    component: List,
+    meta: {
+      roles: ['editor', 'admin']
     }
   }
+]
+export default new Router({
+  mode: 'history',
+  routes: constRoutes
 })
-export default router
+// 1、全局前置守卫：每次路由激活之前调用
+// router.beforeEach((to, from, next) => {
+//   if ((to.path !== '/login' &&  !store.state.isLogin)) {
+//     next({path: '/login?redirect=' + to.path}) // 可以在该位置做一个路由重定向，登陆后继续跳转到刚才想进入的页面
+//     console.log('请登录')
+//   } else {
+//     if (to.path === '/login') {
+//       next()
+//     } else {
+//       next()
+//     }
+//   }
+// })
+// export default router
 
