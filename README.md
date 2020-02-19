@@ -107,6 +107,9 @@ http://www.ruanyifeng.com/blog/2019/02/npx.html)  npm 从5.2版开始，增加�
     - 全局守卫适用于登录验证
     - 单独路由守卫适用于组件
     - 单独组件守卫
+- 路由分为两种：
+    - constRoutes：静态路由，代表不需要动态判断权限的路由，如登录页、看板、404
+    - asyncRoutes：动态路由，代表需要判断权限并通过addRoutes动态添加的页面
 
  
 #### 2. [vuex](https://vuex.vuejs.org/zh/)
@@ -181,9 +184,9 @@ axios.interceptors.request.use(config => {
     return config
 })
 ```
-5. 实践：
+5. **实践：**
 按照权限登录：登录注销流程：清空localStorage缓存、登录态更新为false
-    - router做路由拦截 /root/router/index.js || permission.js
+    - router做路由拦截，路由定义 /root/router/index.js || permission.js
     - vuex保存登录token和role（与cookie同步） /store/modules/permission.js || user.js
     - cookie保存登录token和role /root/util/utils/auth.js
 6. **深入理解令牌机制：**
@@ -307,11 +310,29 @@ ts是Angular的默认开发语言；Vue3使用ts；现有的vue和react项目也
 图标自动导入配置：require.context('./svg', false, /\.svg$/)
 req.keys().ap(req)
 
-- 动态路由：
-路由分为两种：
-    - constRoutes：代表不需要动态判断权限的路由，如登录页、看板、404
-    - asyncRoutes：（动态路由）代表需要判断权限并通过addRoutes动态添加的页面
 
 
+**小记**
     
-    
+- 函数型组件：了解；
+- 自定义指令：实现一个v-permission，位置：/root/direction/permission.js
+    - 缺点：该指令只能删除挂载指令的元素，对于额外生成的和指令无关的元素无能为力（tabs-pane使用自定义指令控制时，无法控制tabs对应的页面内容，此时只能通过v-if来解决）
+    - 与v-if用法比较：
+v-if的优先级大于v-[direction]，v-if=false直接不会出现在dom中，如果是v-[direction]=false，是曾经出现过，又给删掉
+- 面包屑：breadcrumb：
+- 请求封装：/root/util/utils/request.js
+    - [vue-cli 环境变量和模式](https://cli.vuejs.org/zh/guide/mode-and-env.html#模式)：新建.env.development
+    - 数据mock：本地mock和线上mock
+        - 本地mock：vue.config.js，before中server：bodyParser插件，解析post请求中的json数据
+        - 线上mock：使用[easy-mock](https://easy-mock.com/) 
+    - 新增api请求文件：/root/api/user.js
+- 注意配置：
+    - dev.env.js
+    ```
+    VUE_APP_BASE_API: '"/dev-api"' // client访问时可以省略/dev-api这个uri
+    ```
+    - config/index.js
+    ```
+     assetsPublicPath: '/views',
+    ```
+

@@ -28,7 +28,7 @@ export default {
           this.$router.push({path: this.$route.query.redirect || "/"})
         })
         .catch(e => {
-          alert(e)
+          console.log(e)
         })
     }
   }

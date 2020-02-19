@@ -1,6 +1,7 @@
 <template>
   <div class="cart-container">
     <div class="good-content-container">
+      <button v-permission="['admin']">test</button>
       <ul>
         <li v-for="goodItem in oGoodsList" :key="goodItem.id">
           商品名：{{goodItem.name}} ；
@@ -23,6 +24,9 @@ export default {
         {id: 3, name: '酒精', price: 50}
       ]
     }
+  },
+  mounted() {
+    console.log('matched',this.$route.matched)
   }
 }
 </script>

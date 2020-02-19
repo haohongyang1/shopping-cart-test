@@ -34,7 +34,6 @@ export default {
             // 拿到所有需要校验的item
             let tasks = this.$children.filter(item => item.prop).map(item => item.validate())
             let result = await Promise.all(tasks)
-            console.log(result)
             if (result.every(item => !item)){
                 cb(false)
             }else {

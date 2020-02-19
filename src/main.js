@@ -5,8 +5,10 @@ import App from './App'
 import router from './router'
 import store from './store'
 import './router/permission'
+import vPermission from './direction/permission'
 
 Vue.config.productionTip = false
+Vue.directive("permission", vPermission)
 
 /* eslint-disable no-new */
 new Vue({

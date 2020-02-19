@@ -6,7 +6,6 @@ import {getToken} from '../../util/utils/auth'
 
 const whiteList = ['/login'] // 无需令牌白名单
 router.beforeEach(async (to, from, next) => {
-    console.log(to.path)
     // 获取令牌判断用户是否登录
     const hasToken = getToken()
     if (hasToken) {
@@ -20,8 +19,8 @@ router.beforeEach(async (to, from, next) => {
             } else {
                 try {
                     // 用户信息获取，完成 根据角色生成动态路由操作，并且 保存在cookie中；
-                    const roles = await store.dispatch("user/getInfo")
-                    console.log(roles)
+                    const res = await store.dispatch("user/getInfo")
+                    const roles = Array.from(res)
                     const accessRoles = await store.dispatch("permission/generateRoutes", roles)
                     router.addRoutes(accessRoles) // 异步添加动态路由
                     next({...to, replace: true}) // ==== 

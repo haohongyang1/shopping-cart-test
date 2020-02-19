@@ -9,6 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const bodyParser = require('body-parser')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -44,10 +45,31 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     },
     before (app) {
-      app.get('/goods', (req, res) => {
-          res.json([
-              {id:1, price: 2}
-          ])
+      app.use(bodyParser.json())
+      app.use(bodyParser.urlencoded({
+        extended: true
+      }))
+      app.post('/dev-api/user/login', (req, res) => {
+        const {username} = req.body
+        if (username === 'admin' || username === 'tom') {
+          res.json({
+            code: 1,
+            data: username
+          })
+        } else {
+          res.json({
+            code: 10204,
+            data: "用户名错误"
+          })
+        }
+      })
+      app.get('/dev-api/user/info', (req, res) => {
+        // 为了方便阅读，将headers x-token字段取为admin；但真实场景中token是一串唯一值，可能由头部+载荷+哈希（哈希值判断token是否被用户篡改的依据）来组成；
+        const roles = req.headers['x-token'] === "admin" ? ["admin"] : ["editor"]
+        res.json({
+          code: 1,
+          data: roles
+        })
       })
     }
   },
