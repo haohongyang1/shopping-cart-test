@@ -51,6 +51,8 @@ https://zh.nuxtjs.org/api)
 - [npx](
 http://www.ruanyifeng.com/blog/2019/02/npx.html)  npm 从5.2版开始，增加了 npx 命令 
 - cookie管理插件：npm install js-cookie -S
+- express中间件body-parser可以用来解析请求体的文本格式、json格式、二进制格式，安装：npm install body-parser
+- [下载ng](https://vue-test-utils.vuejs.org/zh/)
 
 ### 1.VUE基础实现回顾
 实现一个购物车 /src/components/Home.vue
@@ -284,6 +286,15 @@ ts是Angular的默认开发语言；Vue3使用ts；现有的vue和react项目也
 - 定义：
     - 单元测试：内部功能测试，已知执行逻辑，黑盒测试
     - 端到端测试：模拟用户点击页面，E2E，白盒测试
+- 实践：
+    - 准备工作：测试框架Jest（跑测试）、[断言库Jest](
+https://jestjs.io/docs/zh-Hans/expect)（写测试）
+    - 测试套件：每个测试套件可以写多个测试用例，对vue的复杂逻辑测试，需要使用官方的：[单元测试使用工具库](https://vue-test-utils.vuejs.org/zh/)，可以进行一些模拟挂载、组件模拟点击等...
+    - 测试覆盖率：
+        - 语句覆盖率：每个语句
+        - 分支覆盖率：if-else
+        - 函数覆盖率：函数
+        - 行覆盖率：每行
 
 #### 3.  项目常见配置
 - webpack配置和vue配置
@@ -335,4 +346,19 @@ v-if的优先级大于v-[direction]，v-if=false直接不会出现在dom中，�
     ```
      assetsPublicPath: '/views',
     ```
+- 代理
+    - 开发代理：config文件中 proxy
+    - 线上代理：nginx
+- 项目部署： **TODO 未完成**
+    - 配置生产环境，打包，npm run build
+    - [下载ng](https://vue-test-utils.vuejs.org/zh/)
+    - 配置：nginx.conf
+    ```
+    root，
+    location,
+    location ^~/.../,
+    ```
+    注意：vue.config.js，publicPath，文件目录的根目录和这个相同；
+    - 启动：在ng安装的根目录下执行：start nginx
+- git hooks：在每次提交代码时执行lint
 

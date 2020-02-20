@@ -1,4 +1,4 @@
-// 未尝试过是否能跑通 ---- TODO ----
+// 未尝试过是否能跑通 进入server文件夹后 node [filename]
 const Koa = require('koa')
 const Router = require('koa-router')
 const jwt = require('jsonwebtoken') // 签发令牌
@@ -27,6 +27,10 @@ router.get("/api/login", async ctx => {
 })
 
 router.get("/api/userinfo", jwtAuth({ secret }), async ctx => {
+    ctx.body = {code: 1, data: {name:'h', age: '20'}}
+})
+
+router.get("/api/test", async ctx => {
     ctx.body = {code: 1, data: {name:'h', age: '20'}}
 })
 
